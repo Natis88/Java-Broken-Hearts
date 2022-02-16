@@ -1,0 +1,104 @@
+@startuml heartsGame
+
+class Game {
+    -private Player[] players;
+    -private final int targetScore;
+    +private void play();
+}
+class Table{
+  -private static Player[]players;
+  +public static Player[] placingPlayers();
+}
+
+class Card{
+    -private final Suits suit;
+    -private final Ranks rank;
+}
+
+class Deck{
+  -final[] Card deck;
+  + Collections.shuffle(deck);
+  +public Card giveCard();
+  +public boolean hasCard();
+  +public boolean addBack(Card c);
+
+}
+class Player{
+ -private Seats seat;
+ -private Hand hand;
+ +public Card playTurn();
+}
+
+class Hand{
+  -private SortedSet<Card> hand;
+  +public Card dropCard();
+  +public void takeCard();
+}
+class Dealer {
+    -private Player[] players;
+    -private Deck dealer;
+    -private int roundNumber;
+    -private Exchange ex;
+    +public void deal(Seats seat);
+    +public void playTrick(Player player);
+    +public void collectCard();
+    +public void acceptCards(Player p, int DealerNumber);
+      
+}
+class Exchange{
++ public boolean exchange(Player player, Card c, int DealerNumber);
+
+  
+}
+
+class Score{
+  -private int[]scores;
+}
+
+
+enum Suits{
+  Clubs("\u2663")
+   Diamonds("\u2666")
+   Hearts("\u2665")
+   Spades("\u2660")
+}
+enum Ranks{
+   Deuce('2')
+   Three('3')
+   Four('4')
+    Five('5')
+    Six('6')
+    Seven('7')
+    Eight('8')
+     Nine('9')
+    Ten('T')
+    Jack('J')
+    Queen('Q')
+     King('K')
+      Ace('A');
+}
+
+
+enum Seats{
+  East,
+  West,
+  North,
+  South.
+}
+Card --* Ranks: owns  >
+Card --*Suits: owns  >
+Game --* Dealer: > have
+Game *--Score: > have
+Game--*Table: owns >
+Dealer--* Deck: have >
+Dealer--Exchange: > uses
+Deck--*Card: have >
+Player --Seats: > have
+Player--*Hand: owns >
+Table*--Seats: owns >
+Table--*Player: have >
+
+
+
+
+@enduml
